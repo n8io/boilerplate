@@ -4,6 +4,8 @@
   "description": "A simple app to track weight loss",
   "main": "./server/app.js",
   "scripts": {
+    "start": "node ./src/server/app.js",
+    "postinstall": "node ./node_modules/.bin/grunt && node ./node_modules/.bin/bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
