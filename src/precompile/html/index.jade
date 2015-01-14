@@ -1,0 +1,29 @@
+extends _layouts/master
+
+append header-meta
+  base(href='/')
+
+append header-title
+  | Angular weather
+
+append body-ng-controller
+  - controller_name = 'Weather_Controller as wc';
+
+append body-title
+  h4
+    span Using Angular to show the 7 day forecast for&nbsp;
+    select(data-ng-model='wc.selectedLocation', data-ng-options='location as location.label for location in wc.locations',data-ng-disabled='wc.isWeatherDataLoading')
+append body-content
+  .row
+    .col-md-12
+      table.table
+        tr(data-ng-repeat='row in wc.weatherData.data')
+          td.width-60
+            weather-icon(icon='row.icon', height='60', width='60')
+          td
+            div
+              h3.mgn-0
+                span {{::row.time*1000 | date:'EEEE'}}
+                span.text-muted {{::row.time*1000 | date:'MMM d'}}
+              strong {{::row.temperatureMax | number:0}} / {{::row.temperatureMin | number:0}}
+              div(data-ng-bind='::row.summary')
