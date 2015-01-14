@@ -1,0 +1,19 @@
+{
+  "name": "w8loss",
+  "version": "1.0.0",
+  "description": "A simple app to track weight loss",
+  "main": "./server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n8io/w8loss.git"
+  },
+  "author": "Nate Clark",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/n8io/w8loss/issues"
+  },
+  "homepage": "https://github.com/n8io/w8loss"
+}
