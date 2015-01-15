@@ -42,6 +42,9 @@ require.config({
     'modernizr': {
       'exports': 'Modernizr'
     },
+    'moment': {
+      'exports': 'moment'
+    },
     'lodash': {
       'exports': '_'
     },

@@ -1,4 +1,6 @@
 var moment = require('moment');
+var path = require('path');
+
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -9,267 +11,94 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     clean: {
+      options: {
+        force: true
+      },
       dist: {
         src: cfg.outputDir
       },
       angular: {
         src: cfg.angular.cleanup
       }
-    }//,
-    // copy: {
-    //   assets: {
-    //     files: [
-    //       {
-    //         expand: true,
-    //         cwd: 'src/server/statics',
-    //         src: '**',
-    //         dest: 'src/client/statics',
-    //         flatten: false
-    //       }
-    //     ]
-    //   },
-    //   js: {
-    //     files: [
-    //       {
-    //         expand: true,
-    //         cwd: './src/server/js',
-    //         src: '**',
-    //         dest: './src/client/js',
-    //         ext: '.min.js',
-    //         flatten: false,
-    //         filter: 'isFile'
-    //       }
-    //     ]
-    //   }
-    // },
-    // jshint: {
-    //   all: {
-    //     src: ['./src/server/js/**/*.js'],
-    //     options: {
-    //       jshintrc: true
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   devNg: {
-    //     options : {
-    //       mangle: false,
-    //       compress: false,
-    //       preserveComments: 'some',
-    //       beautify: {
-    //         beautify: true,
-    //         indent_level: 2
-    //       }
-    //     },
-    //     files: [{
-    //       expand: true,
-    //       cwd: './src/client/js/ng',
-    //       src: ['**/*.js'],
-    //       dest: './src/client/js/ng',
-    //       ext: '.min.js'
-    //     }]
-    //   },
-    //   prodNgCommon: {
-    //     options : {
-    //       mangle: true,
-    //       compress: true,
-    //       banner : '/* Minified via UglifyJs ' + timestamp + ' */\n'
-    //     },
-    //     files: {
-    //       './src/client/js/ng/ng.min.js': ['./src/client/js/ng/*.min.js']
-    //     }
-    //   },
-    //   prodNg: {
-    //     options : {
-    //       mangle: true,
-    //       compress: true,
-    //       banner : '/* Minified via UglifyJs ' + timestamp + ' */\n'
-    //     },
-    //     files: [{
-    //       expand: true,
-    //       cwd: './src/client/js/ng',
-    //       src: '**/*.js',
-    //       dest: './src/client/js/ng',
-    //       ext: '.min.js'
-    //     }]
-    //   }
-    // },
-    // stylus: {
-    //   dev: {
-    //     options: {
-    //       paths: ['./css'],
-    //       import: ['nib'], // use stylus plugin at compile time
-    //       linenos: true,
-    //       compress: false
-    //     },
-    //     files: {
-    //       './src/client/css/style.min.css': stylusSrcFileArr
-    //     }
-    //   },
-    //   prod: {
-    //     options: {
-    //       paths: ['./css'],
-    //       import: ['nib'], // use stylus plugin at compile time
-    //       linenos: false,
-    //       compress: true,
-    //       banner: '/* Minified via Stylus on ' + timestamp + '*/\n'
-    //     },
-    //     files: {
-    //       './src/client/css/style.min.css': stylusSrcFileArr
-    //     }
-    //   }
-    // },
-    // jade: {
-    //   dev: {
-    //     options: {
-    //       pretty: true,
-    //       data: {
-    //         baseUrl: assets.barequire('./precompile/assets.json')seUrl,
-    //         cacheKey: timestampMs,
-    //         env: 'dev'
-    //       }
-    //     },
-    //     files: [
-    //       {
-    //         expand: true,
-    //         cwd: './src/server/views',
-    //         src: assets.jarequire('./precompile/assets.json')deSrcFileArr,
-    //         dest: 'src/client/',
-    //         ext: '.html'
-    //       }
-    //     ]
-    //   },
-    //   prod: {
-    //     options: {
-    //       pretty: false,
-    //       data: {
-    //         baseUrl: assets.barequire('./precompile/assets.json')seUrl,
-    //         cacheKey: timestampMs,
-    //         env: 'prod'
-    //       }
-    //     },
-    //     files: [
-    //       {
-    //         expand: true,
-    //         cwd: './src/server/views',
-    //         src: assets.jarequire('./precompile/assets.json')deSrcFileArr,
-    //         dest: 'src/client/',
-    //         ext: '.html'
-    //       }
-    //     ]
-    //   }
-    // },
-    // cssmin: {
-    //   prod: {
-    //     options:{
-    //       keepSpecialComments: 0,
-    //       banner : '/* Minified via CssMin ' + timestamp + ' */'
-    //     },
-    //     files: {
-    //       './src/client/css/style.min.css': assets.csrequire('./precompile/assets.json')sSrcFileArr
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dev: {
-    //     src: assets.jsrequire('./precompile/assets.json')NgSrcFileArr,
-    //     dest: './src/client/js/ng/ng.min.js'
-    //   }
-    // },
-    // ngAnnotate: {
-    //   dev: {
-    //     files: [
-    //       {
-    //         expand: true,
-    //         cwd: './src/client/js/ng',
-    //         src: '**/*.min.js',
-    //         dest: './src/client/js/ng',
-    //         ext: '.min.js'
-    //       }
-    //     ]
-    //   }
-    // },
-    // prettify: {
-    //   options: {
-    //     indent: 2,
-    //     unformatted: []
-    //   },
-    //   index: {
-    //     src: './src/client/index.html',
-    //     dest: './src/client/index.html'
-    //   }
-    // },
-    // watch: {
-    //   scripts: {
-    //     files: assets.jsrequire('./precompile/assets.json')WatchFileArr,
-    //     tasks: ['dev'],
-    //     options: {
-    //       nospawn: false,
-    //       interrupt: false
-    //     }
-    //   },
-    //   css: {
-    //     files: stylusWatchFileArr,
-    //     tasks: ['dev'],
-    //     options: {
-    //       nospawn: false,
-    //       interrupt: false
-    //     }
-    //   },
-    //   jade: {
-    //     files: assets.jarequire('./precompile/assets.json')deWatchFileArr,
-    //     tasks: ['dev'],
-    //     options: {
-    //       nospawn: false,
-    //       interrupt: false
-    //     }
-    //   },
-    //   statics: {
-    //     files: staticsWatchFileArr,
-    //     tasks: ['dev'],
-    //     options: {
-    //       nospawn: false,
-    //       interrupt: false
-    //     }
-    //   },
-    //   livereload: {
-    //     options: {
-    //       livereload: true
-    //     },
-    //     files: [
-    //       'src/client/**/*',
-    //       '!src/client/bower_compnents/**/*'
-    //     ],
-    //   }
-    // },
-    // 'node-inspector': {
-    //   dev: {
-    //     options: {
-    //       'web-port': 8080,
-    //       'web-host': 'localhost',
-    //       'debug-port': 5860,
-    //       'save-live-edit': true,
-    //       hidden: ['node_modules']
-    //     }
-    //   }
-    // },
-    // nodemon: {
-    //   dev: {
-    //     script: 'src/server/app.js',
-    //     options: {
-    //       nodeArgs: ['--debug=5860'],
-    //       watch: ['src/server/*.js'],
-    //       ext: 'js,json',
-    //       delay: 0
-    //     }
-    //   }
-    // },
-    // concurrent: {
-    //   tasks: ['nodemon', 'watch', 'node-inspector'],
-    //   options: {
-    //     logConcurrentOutput: true
-    //   }
-    // }
+    },
+    stylus: {
+      dist: {
+        options: {
+          import: ['nib'], // use stylus plugin at compile time
+          linenos: true,
+          compress: false
+        },
+        files: [
+          {
+            src: cfg.stylus.src,
+            dest: cfg.stylus.dest
+          }
+        ]
+      }
+    },
+    cssmin: {
+      dist: {
+        options:{
+          keepSpecialComments: 0,
+          banner : '/* Minified via CssMin ' + timestamp + ' */'
+        },
+        files: [
+          {
+            src: cfg.stylus.dest,
+            dest: cfg.stylus.dest
+          }
+        ]
+      }
+    },
+    jade: {
+      dist: {
+        options: {
+          pretty: true,
+          data: {
+            cacheKey: timestampMs,
+            env: 'dev'
+          }
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cfg.jade.cwd,
+            src: cfg.jade.src,
+            dest: cfg.jade.dest,
+            ext: '.html'
+          }
+        ]
+      }
+    },
+    htmlmin: {
+      dist: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cfg.htmlmin.cwd,
+            src: cfg.htmlmin.src,
+            dest: cfg.htmlmin.dest
+          }
+        ]
+      }
+    },
+    copy: {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: cfg.copy.cwd,
+            src: cfg.copy.src,
+            dest: cfg.copy.dest,
+            flatten: false
+          }
+        ]
+      }
+    }
   });
 
   // Environment agnostic
@@ -285,14 +114,14 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', [
     'preprocess',
     'jade:dev',
-    'copy:assets',
-    'copy:js',
-    'stylus:dev',
-    'concat:dev',
-    'jshint',
-    'ngAnnotate',
-    'uglify:devNg',
-    'prettify',
+    // 'copy:assets',
+    // 'copy:js',
+    'stylus:dist',
+    // 'concat:dev',
+    // 'jshint',
+    // 'ngAnnotate',
+    // 'uglify:devNg',
+    // 'prettify',
     'postprocess'
   ]);
 
@@ -304,20 +133,20 @@ module.exports = function(grunt) {
   // Dev watcher
   grunt.registerTask('watcher', 'Fires minify css and js, then watches for changes', [
     'dev',
-    'concurrent'
+    // 'concurrent'
   ]);
 
   // Prod build (default task)
   grunt.registerTask('default', [
     'preprocess',
     'jade:prod',
-    'copy:assets',
-    'copy:js',
-    'stylus:prod',
-    'cssmin:prod',
-    'ngAnnotate',
-    'uglify:prodNg',
-    'uglify:prodNgCommon',
+    // 'copy:assets',
+    // 'copy:js',
+    'stylus:dist',
+    'cssmin:dist',
+    // 'ngAnnotate',
+    // 'uglify:prodNg',
+    // 'uglify:prodNgCommon',
     'postprocess'
   ]);
 };
