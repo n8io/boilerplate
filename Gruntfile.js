@@ -9,7 +9,17 @@ module.exports = function(grunt) {
 
   var cfg = require('./src/precompile/asset-config');
 
+  // console.log(JSON.stringify(cfg,null,2));
+
   grunt.initConfig({
+    jshint: {
+      all: {
+        src: ['./src/precompile/js/**/*.js'],
+        options: {
+          jshintrc: true
+        }
+      }
+    },
     clean: {
       options: {
         force: true
@@ -87,13 +97,24 @@ module.exports = function(grunt) {
       }
     },
     copy: {
-      dist: {
+      statics: {
         files: [
           {
             expand: true,
-            cwd: cfg.copy.cwd,
-            src: cfg.copy.src,
-            dest: cfg.copy.dest,
+            cwd: cfg.copy.statics.cwd,
+            src: cfg.copy.statics.src,
+            dest: cfg.copy.statics.dest,
+            flatten: false
+          }
+        ]
+      },
+      bower: {
+        files: [
+          {
+            expand: true,
+            cwd: cfg.copy.bower.cwd,
+            src: cfg.copy.bower.src,
+            dest: cfg.copy.bower.dest,
             flatten: false
           }
         ]
@@ -113,12 +134,11 @@ module.exports = function(grunt) {
   // Dev build
   grunt.registerTask('dev', [
     'preprocess',
+    'jshint',
     'jade:dev',
-    // 'copy:assets',
-    // 'copy:js',
+    'copy',
     'stylus:dist',
     // 'concat:dev',
-    // 'jshint',
     // 'ngAnnotate',
     // 'uglify:devNg',
     // 'prettify',
@@ -139,9 +159,9 @@ module.exports = function(grunt) {
   // Prod build (default task)
   grunt.registerTask('default', [
     'preprocess',
-    'jade:prod',
-    // 'copy:assets',
-    // 'copy:js',
+    'jade',
+    'htmlmin',
+    'copy',
     'stylus:dist',
     'cssmin:dist',
     // 'ngAnnotate',

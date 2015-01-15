@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function bodyController(){
-    var vm = this;
+    var vm = this; // jshint ignore:line
 
     vm.init = function init(){
 
