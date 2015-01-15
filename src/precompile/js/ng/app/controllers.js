@@ -7,7 +7,7 @@
     ;
 
   /* @ngInject */
-  function bodyController(){
+  function bodyController($scope){
     var vm = this; // jshint ignore:line
 
     vm.init = function init(){

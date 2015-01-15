@@ -4,10 +4,16 @@ var outputDir = './src/dist';
 var bowerDir = './bower_components';
 var assets = {
   outputDir: outputDir,
+  jshint: {
+    src: [
+      './src/precompile/js/**/*.js',
+      './src/server/**/*.js'
+    ]
+  },
   angular: {
     cleanup: [
-      path.join(outputDir, './js/app/**/*.js'),
-      path.join('!' + outputDir, './js/app/**/*.min.js')
+      path.join(outputDir, './html/ng-templates'),
+      path.join(outputDir, './js/ng/app/ng.templates.min.js')
     ]
   },
   stylus: {
@@ -61,6 +67,23 @@ var assets = {
       ],
       dest: path.join(outputDir, './statics')
     }
+  },
+  concat: {
+    src: [
+      './src/precompile/js/ng/app/**/*.js',
+      path.join(outputDir, './js/ng/app/ng.templates.min.js')
+    ],
+    dest: path.join(outputDir, './js/ng/app/app.min.js')
+  },
+  ngAnnotate: {
+    cwd: path.join(outputDir, './js/ng'),
+    src: [ '**/*.min.js' ],
+    dest: path.join(outputDir, './js/ng')
+  },
+  ngtemplates: {
+    cwd: path.join(outputDir, './html/ng-templates'),
+    src: '**/*.html',
+    dest: path.join(outputDir, './js/ng/app/ng.templates.min.js')
   }
 };
 

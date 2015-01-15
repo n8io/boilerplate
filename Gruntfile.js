@@ -14,20 +14,23 @@ module.exports = function(grunt) {
   grunt.initConfig({
     jshint: {
       all: {
-        src: ['./src/precompile/js/**/*.js'],
+        src: cfg.jshint.src,
         options: {
           jshintrc: true
         }
       }
     },
     clean: {
-      options: {
-        force: true
-      },
       dist: {
+        options: {
+          force: true
+        },
         src: cfg.outputDir
       },
       angular: {
+        options: {
+          force: true
+        },
         src: cfg.angular.cleanup
       }
     },
@@ -119,6 +122,64 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+    concat: {
+      dist: {
+        src: cfg.concat.src,
+        dest: cfg.concat.dest
+      }
+    },
+    ngAnnotate: {
+      dist: {
+        options: {
+          singleQuotes: true
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cfg.ngAnnotate.cwd,
+            src: cfg.ngAnnotate.src,
+            dest: cfg.ngAnnotate.dest
+          }
+        ]
+      }
+    },
+    ngtemplates: {
+      app: {
+        cwd: cfg.ngtemplates.cwd,
+        src: cfg.ngtemplates.src,
+        dest: cfg.ngtemplates.dest,
+        options: {
+          htmlmin:  {
+            collapseWhitespace:             true,
+            removeComments:                 true,
+            removeRedundantAttributes:      true,
+            removeScriptTypeAttributes:     true,
+            removeStyleLinkTypeAttributes:  true
+          },
+          url: function(url) { return url.replace('.html', ''); },
+          bootstrap:  function(module, script) {
+            var jsLines = script.split('\n');
+            jsLines.splice(0, 2); //Pop off the extra 'use strict' line and newlines
+            jsLines.splice(jsLines.length - 1, 1);
+            var lines = [
+              '"use strict";',
+              'angular',
+              '  .module("' + module + '")',
+              '  .run(preloadTemplates)',
+              '  ;',
+              '',
+              'function preloadTemplates($log, $templateCache){',
+              jsLines.join('\n  '),
+              '}',
+              'preloadTemplates.$inject = ["$log", "$templateCache"];',
+            ];
+
+            var js = lines.join('\n  ');
+            return '(function(){\n  ' + js + '\n})();';
+          }
+        }
+      }
     }
   });
 
@@ -135,11 +196,12 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', [
     'preprocess',
     'jshint',
-    'jade:dev',
+    'jade',
+    'ngtemplates',
     'copy',
-    'stylus:dist',
-    // 'concat:dev',
-    // 'ngAnnotate',
+    'stylus',
+    'concat',
+    'ngAnnotate',
     // 'uglify:devNg',
     // 'prettify',
     'postprocess'
@@ -160,11 +222,12 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'preprocess',
     'jade',
+    'ngtemplates',
     'htmlmin',
     'copy',
-    'stylus:dist',
-    'cssmin:dist',
-    // 'ngAnnotate',
+    'stylus',
+    'cssmin',
+    'ngAnnotate',
     // 'uglify:prodNg',
     // 'uglify:prodNgCommon',
     'postprocess'
