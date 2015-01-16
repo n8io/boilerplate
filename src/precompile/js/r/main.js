@@ -74,6 +74,6 @@ require.config({
     'angular'
   ],
   deps: [
-    '/r/bootstrap'
+    'bootstrap.min'
   ]
 });

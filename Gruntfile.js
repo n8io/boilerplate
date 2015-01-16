@@ -121,12 +121,18 @@ module.exports = function(grunt) {
             flatten: false
           }
         ]
-      }
-    },
-    concat: {
-      dist: {
-        src: cfg.concat.src,
-        dest: cfg.concat.dest
+      },
+      requirejs: {
+        files: [
+          {
+            expand: true,
+            cwd: cfg.copy.requirejs.cwd,
+            src: cfg.copy.requirejs.src,
+            dest: cfg.copy.requirejs.dest,
+            ext: '.min.js',
+            flatten: false
+          }
+        ]
       }
     },
     ngAnnotate: {
@@ -163,22 +169,50 @@ module.exports = function(grunt) {
             jsLines.splice(0, 2); //Pop off the extra 'use strict' line and newlines
             jsLines.splice(jsLines.length - 1, 1);
             var lines = [
-              '"use strict";',
-              'angular',
-              '  .module("' + module + '")',
-              '  .run(preloadTemplates)',
-              '  ;',
+              '\'use strict\';',
+              'var defineTemplateCache = function defineTemplateCache(){',
+              '  angular',
+              '    .module(\'' + module + '\')',
+              '    .run(preloadTemplates)',
+              '    ;',
               '',
-              'function preloadTemplates($log, $templateCache){',
-              jsLines.join('\n  '),
-              '}',
-              'preloadTemplates.$inject = ["$log", "$templateCache"];',
+              '  function preloadTemplates($log, $templateCache){',
+              jsLines.join('\n    '),
+              '  }',
+              '  preloadTemplates.$inject = [\'$log\', \'$templateCache\'];',
+              '};',
+              '',
+              'var deps = [ \'app.min\' ];',
+              '',
+              'require(deps, defineTemplateCache);'
             ];
 
             var js = lines.join('\n  ');
             return '(function(){\n  ' + js + '\n})();';
           }
         }
+      }
+    },
+    uglify: {
+      dev: {
+        options: {
+          mangle: false,
+          compress: false,
+          preserveComments: 'some',
+          beautify: {
+            beautify: true,
+            indent_level: 2
+          }
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cfg.uglify.cwd,
+            src: cfg.uglify.src,
+            dest: cfg.uglify.dest,
+            ext: '.min.js'
+          }
+        ]
       }
     }
   });
@@ -198,11 +232,10 @@ module.exports = function(grunt) {
     'jshint',
     'jade',
     'ngtemplates',
-    'copy',
     'stylus',
-    'concat',
+    'copy',
     'ngAnnotate',
-    // 'uglify:devNg',
+    'uglify:dev',
     // 'prettify',
     'postprocess'
   ]);
@@ -224,11 +257,11 @@ module.exports = function(grunt) {
     'jade',
     'ngtemplates',
     'htmlmin',
-    'copy',
     'stylus',
     'cssmin',
+    'copy',
     'ngAnnotate',
-    // 'uglify:prodNg',
+    'uglify:prod',
     // 'uglify:prodNgCommon',
     'postprocess'
   ]);

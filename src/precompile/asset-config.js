@@ -12,8 +12,7 @@ var assets = {
   },
   angular: {
     cleanup: [
-      path.join(outputDir, './html/ng-templates'),
-      path.join(outputDir, './js/ng/app/ng.templates.min.js')
+      path.join(outputDir, './html/ng-templates')
     ]
   },
   stylus: {
@@ -48,6 +47,7 @@ var assets = {
     bower: {
       cwd: 'src/precompile/statics',
       src: [
+        path.join(bowerDir, './requirejs/require.js'),
         path.join(bowerDir, './angular/angular.min.js'),
         path.join(bowerDir, './angular-animate/angular-animate.min.js'),
         path.join(bowerDir, './angular-aria/angular-aria.min.js'),
@@ -66,14 +66,12 @@ var assets = {
         path.join(bowerDir, './underscore.string/dist/underscore.string.min.js')
       ],
       dest: path.join(outputDir, './statics')
+    },
+    requirejs: {
+      cwd: 'src/precompile/js/r',
+      src: [ '**/*.js' ],
+      dest: path.join(outputDir, './js/r')
     }
-  },
-  concat: {
-    src: [
-      './src/precompile/js/ng/app/**/*.js',
-      path.join(outputDir, './js/ng/app/ng.templates.min.js')
-    ],
-    dest: path.join(outputDir, './js/ng/app/app.min.js')
   },
   ngAnnotate: {
     cwd: path.join(outputDir, './js/ng'),
@@ -83,7 +81,12 @@ var assets = {
   ngtemplates: {
     cwd: path.join(outputDir, './html/ng-templates'),
     src: '**/*.html',
-    dest: path.join(outputDir, './js/ng/app/ng.templates.min.js')
+    dest: path.join(outputDir, './js/ng/templates.js')
+  },
+  uglify: {
+    cwd: './src/precompile/js/ng',
+    src: '**/*.js',
+    dest: path.join(outputDir, './js/ng')
   }
 };
 
