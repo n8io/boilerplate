@@ -1,6 +1,6 @@
 require.config({
   baseUrl: '/js/ng',
-  waitSeconds: 2,
+  // waitSeconds: 2,
   paths: {
     'jquery': [
       '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min',
@@ -17,26 +17,27 @@ require.config({
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min',
       '/statics/bower_components/angular/angular.min'
     ],
-    'ngRoute': [
+    'angular-route': [
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-route.min',
       '/statics/bower_components/angular-route/angular-route.min'
     ],
-    'ngResource': [
+    'angular-resource': [
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-resource.min',
       '/statics/bower_components/angular-resource/angular-resource.min'
     ],
-    'ngAnimate': [
+    'angular-animate': [
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-animate.min',
       '/statics/bower_components/angular-animate/angular-animate.min'
     ],
-    'ngAria': [
+    'angular-aria': [
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-aria.min',
       '/statics/bower_components/angular-aria/angular-aria.min'
     ],
-    'ngCookies': [
+    'angular-cookies': [
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-cookies.min',
       '/statics/bower_components/angular-cookies/angular-cookies.min'
-    ]
+    ],
+    'app': 'app.min'
   },
   shim: {
     'modernizr': {
@@ -54,26 +55,32 @@ require.config({
     'angular': {
       'exports': 'angular'
     },
-    'ngRoute': {
+    'angular-route': {
       'deps': ['angular']
     },
-    'ngResource': {
+    'angular-resource': {
       'deps': ['angular']
     },
-    'ngAnimate': {
+    'angular-animate': {
       'deps': ['angular']
     },
-    'ngAria': {
+    'angular-aria': {
       'deps': ['angular']
     },
-    'ngCookies': {
+    'angular-cookies': {
       'deps': ['angular']
     }
   },
   priority: [
     'angular'
-  ],
-  deps: [
-    'bootstrap.min'
   ]
 });
+
+(function(){
+  var deps = [ 'app' ];
+  require(deps, onAppInit);
+
+  function onAppInit(app){
+
+  }
+})();

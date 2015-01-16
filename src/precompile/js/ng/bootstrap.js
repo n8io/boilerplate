@@ -1,14 +1,8 @@
-(function() {
-  'use strict';
+(function(){
+  var deps = [ 'app.min' ];
+  require(deps, initializeApp)
 
-  var boostrapAngular = function boostrapAngular() {
-    angular.bootstrap(document, [ 'app' ]);
-  };
-
-  var deps = [
-    'angular',
-    'app.min'
-  ];
-
-  require(deps, boostrapAngular);
+  function initializeApp(app){
+    app.initialize();
+  }
 })();

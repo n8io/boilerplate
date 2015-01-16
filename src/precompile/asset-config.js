@@ -56,6 +56,7 @@ var assets = {
         path.join(bowerDir, './angular-material/angular-material.min.js'),
         path.join(bowerDir, './angular-resource/angular-resource.min.js'),
         path.join(bowerDir, './angular-route/angular-route.min.js'),
+        path.join(bowerDir, './angularAMD/angularAMD.min.js'),
         path.join(bowerDir, './jquery/dist/jquery.min.js'),
         path.join(bowerDir, './lodash/dist/lodash.min.js'),
         path.join(bowerDir, './hammer/hammerjs/hammer.min.js'),

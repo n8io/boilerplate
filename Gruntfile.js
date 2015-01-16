@@ -213,6 +213,21 @@ module.exports = function(grunt) {
             ext: '.min.js'
           }
         ]
+      },
+      prod: {
+        options: {
+          mangle: true,
+          compress: true
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cfg.uglify.cwd,
+            src: cfg.uglify.src,
+            dest: cfg.uglify.dest,
+            ext: '.min.js'
+          }
+        ]
       }
     }
   });
@@ -229,7 +244,7 @@ module.exports = function(grunt) {
   // Dev build
   grunt.registerTask('dev', [
     'preprocess',
-    'jshint',
+    // 'jshint',
     'jade',
     'ngtemplates',
     'stylus',

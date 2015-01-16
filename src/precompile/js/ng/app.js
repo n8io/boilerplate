@@ -1,16 +1,14 @@
 (function(){
-  'use strict';
-
-  var defineAppModule = function defineAppModule(){
-    angular
-      .module('app', [
-        'ngResource'
-      ]);
-  };
-
   var deps = [
-    'angular',
-    'ngRoute'
-  ];
-  require(deps, defineAppModule);
+      'angular',
+      'angular-resource',
+      'angular-route'
+    ];
+
+  define('app', deps, defineAppModule);
+
+  function defineAppModule(angular){
+    var app = angular .module('app', [ 'ngResource', 'ngRoute' ]);
+    return angular.bootstrap(app);
+  }
 })();
