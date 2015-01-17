@@ -2,17 +2,18 @@
 var path = require('path');
 var express = require('express');
 var statics = require('serve-static');
-// var request = require('request');
+var compression = require('compression');
 var app = express();
 var pkg = require('../../package.json');
 
-app.use(statics(path.join(__dirname, '../dist'), {index:false}));
+app.use(compression());
+app.use(statics(path.join(__dirname, '../../dist'), {maxAge:0}));
 
 app.get('*', function(req, res, next){
   if(!req.accepts('html')) {
     return next();
   }
-  return res.sendFile(path.join(__dirname, '../dist/html/index.html'));
+  return res.sendFile(path.join(__dirname, '../../dist/html/index.html'));
 });
 
 app.get('*', function(req, res) {

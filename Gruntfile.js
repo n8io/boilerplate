@@ -122,13 +122,13 @@ module.exports = function(grunt) {
           }
         ]
       },
-      requirejs: {
+      js: {
         files: [
           {
             expand: true,
-            cwd: cfg.copy.requirejs.cwd,
-            src: cfg.copy.requirejs.src,
-            dest: cfg.copy.requirejs.dest,
+            cwd: cfg.copy.js.cwd,
+            src: cfg.copy.js.src,
+            dest: cfg.copy.js.dest,
             ext: '.min.js',
             flatten: false
           }
@@ -210,7 +210,7 @@ module.exports = function(grunt) {
             cwd: cfg.uglify.cwd,
             src: cfg.uglify.src,
             dest: cfg.uglify.dest,
-            ext: '.min.js'
+            ext: cfg.uglify.ext
           }
         ]
       },
@@ -225,7 +225,7 @@ module.exports = function(grunt) {
             cwd: cfg.uglify.cwd,
             src: cfg.uglify.src,
             dest: cfg.uglify.dest,
-            ext: '.min.js'
+            ext: cfg.uglify.ext
           }
         ]
       }
