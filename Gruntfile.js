@@ -16,6 +16,7 @@ module.exports = function(grunt) {
       all: {
         src: cfg.jshint.src,
         options: {
+          // node: true,
           jshintrc: true
         }
       }
@@ -229,6 +230,32 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+    watch: {
+      css: {
+        files: cfg.watch.css.files,
+        tasks: [ 'stylus' ],
+        options: {
+          nospawn: false,
+          interrupt: false
+        }
+      },
+      js: {
+        files: cfg.watch.js.files,
+        tasks: [ 'jade', 'ngtemplates', 'jshint', 'copy:js', 'ngAnnotate', 'uglify:dev' ],
+        options: {
+          nospawn: false,
+          interrupt: false
+        }
+      },
+      statics: {
+        files: cfg.watch.statics.files,
+        tasks: [ 'copy:statics', 'copy:bower' ],
+        options: {
+          nospawn: false,
+          interrupt: false
+        }
+      }
     }
   });
 
@@ -244,9 +271,9 @@ module.exports = function(grunt) {
   // Dev build
   grunt.registerTask('dev', [
     'preprocess',
-    // 'jshint',
     'jade',
     'ngtemplates',
+    'jshint',
     'stylus',
     'copy',
     'ngAnnotate',
@@ -263,7 +290,7 @@ module.exports = function(grunt) {
   // Dev watcher
   grunt.registerTask('watcher', 'Fires minify css and js, then watches for changes', [
     'dev',
-    // 'concurrent'
+    'watch'
   ]);
 
   // Prod build (default task)

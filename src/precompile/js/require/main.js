@@ -1,5 +1,5 @@
 require.config({
-  baseUrl: '/js/ng',
+  baseUrl: '/js/angular',
   // waitSeconds: 2,
   paths: {
     'jquery': [
@@ -37,6 +37,10 @@ require.config({
       '//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-cookies.min',
       '/statics/bower_components/angular-cookies/angular-cookies.min'
     ],
+    'bootstrap': [
+      '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min',
+      '/statics/bower_components/bootstrap/bootstrap.min'
+    ],
     'app': 'app.min'
   },
   shim: {
@@ -69,6 +73,12 @@ require.config({
     },
     'angular-cookies': {
       'deps': ['angular']
+    },
+    'bootstrap': {
+      'deps': ['jquery']
+    },
+    'app': {
+      'deps': [ 'bootstrap' ]
     }
   },
   priority: [
@@ -81,6 +91,6 @@ require.config({
   require(deps, onAppInit);
 
   function onAppInit(app){
-
+    $('body').removeAttr('unresolved');
   }
 })();

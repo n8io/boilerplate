@@ -1,6 +1,6 @@
 module.exports = function(){
   var configFileBaseName = 'config';
-  var configDir = path.join(__dirname, '../..', 'config');
+  var configDir = path.join(__dirname, '..', 'config');
 
   cfg = global.config;
   if(!cfg){
@@ -8,7 +8,7 @@ module.exports = function(){
   }
 
   // Pull in NODE_ENV from environment if set
-  cfg.env(['NODE_ENV'])
+  cfg.env(['NODE_ENV']);
 
   // Default to 'development' in case it is not provided
   cfg.defaults({ 'NODE_ENV': 'development' });

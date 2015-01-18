@@ -1,6 +1,6 @@
 (function(){
   var deps = [ 'app.min' ];
-  require(deps, initializeApp)
+  require(deps, initializeApp);
 
   function initializeApp(app){
     app.initialize();

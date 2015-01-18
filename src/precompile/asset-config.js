@@ -16,7 +16,6 @@ var assets = {
     ]
   },
   stylus: {
-    watch: [ './src/precompile/css/**/*.styl' ],
     src: [ './src/precompile/css/style.styl' ],
     dest: path.join(outputDir, './css/style.min.css')
   },
@@ -64,7 +63,9 @@ var assets = {
         path.join(bowerDir, 'modernizr/modernizr/modernizr.js'),
         path.join(bowerDir, 'moment/min/moment.min.js'),
         path.join(bowerDir, 'js-md5/js/js-md5.min.js'),
-        path.join(bowerDir, 'underscore.string/dist/underscore.string.min.js')
+        path.join(bowerDir, 'underscore.string/dist/underscore.string.min.js'),
+        path.join(bowerDir, 'bootstrap/dist/js/bootstrap.min.js'),
+        path.join(bowerDir, 'bootstrap/dist/css/bootstrap.min.css')
       ],
       dest: path.join(outputDir, './statics')
     },
@@ -75,20 +76,34 @@ var assets = {
     }
   },
   ngAnnotate: {
-    cwd: path.join(outputDir, './js/ng'),
+    cwd: path.join(outputDir, './js/angular'),
     src: [ '**/*.js' ],
-    dest: path.join(outputDir, './js/ng')
+    dest: path.join(outputDir, './js/angular')
   },
   ngtemplates: {
     cwd: path.join(outputDir, './html/ng-templates'),
     src: '**/*.html',
-    dest: path.join(outputDir, './js/ng/templates.min.js')
+    dest: path.join(outputDir, './js/angular/templates.min.js')
   },
   uglify: {
     cwd: path.join(outputDir, './js'),
     src: '**/*.js',
     dest: path.join(outputDir, './js'),
     ext: '.min.js'
+  },
+  watch: {
+    css: {
+      files: './src/precompile/css/**/*.styl'
+    },
+    statics: {
+      files: './src/precompile/statics/**/*'
+    },
+    js: {
+      files: [
+        './src/precompile/js/**/*.js',
+        './src/precompile/html/**/*.jade'
+      ]
+    }
   }
 };
 

@@ -18,8 +18,8 @@ mixin body-description(_desc)
 //- Dynamically sets the body's ng-controller name if supplied
 mixin body-ng-controller
   if (controller_name)
-    .col-md-12(data-ng-controller='#{controller_name}')
+    .col-sm-12.col-md-12.col-lg-12(data-ng-controller='#{controller_name}')
       block
   else
-    .col-md-12
+    .col-sm-12.col-md-12.col-lg-12
       block

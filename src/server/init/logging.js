@@ -4,9 +4,9 @@ logger.getLogger = function getLogger(){
 
   if(!streams.length && !config.get('logging:stdOut:disabled')){
     streams.push({
-      level: config.get('logging:stdOut:level') || 'warn',
+      level: config.get('logging:stdOut:level') || 'info',
       stream: process.stdout
-    })
+    });
   }
 
   var options = {

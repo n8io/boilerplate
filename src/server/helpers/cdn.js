@@ -1,5 +1,4 @@
 var url = require('url');
-var _ = require('lodash');
 
 var cdn = function(){};
 
