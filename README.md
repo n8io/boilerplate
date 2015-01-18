@@ -1,4 +1,5 @@
-# w8loss
+# boilerplate
+A project to get you up and running quickly.
 
 ## Initialize
 1. `git clone git@github.com:n8io/w8loss.git && cd w8loss`
