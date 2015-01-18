@@ -1,29 +1,59 @@
 'use strict';
 var path = require('path');
 var express = require('express');
-var statics = require('serve-static');
-var compression = require('compression');
+
+var isProduction = !((process.env.NODE_ENV||'dev').toLowerCase().indexOf('prod'));
+
 var app = express();
-var pkg = require('../../package.json');
 
-app.use(compression());
-app.use(statics(path.join(__dirname, '../../dist'), {maxAge:0}));
+// Load up common utilities
+require('./controllers/app/utilities');
 
-app.get('*', function(req, res, next){
-  if(!req.accepts('html')) {
-    return next();
-  }
-  return res.sendFile(path.join(__dirname, '../../dist/html/index.html'));
+// Establish global variables
+require('./controllers/app/globals');
+
+// Load up config
+require('./controllers/helpers/configuration')();
+
+// Initialize logging
+global.logger = require('./controllers/app/logging').getLogger();
+
+// Set high level middleware
+require('./controllers/app/middleware')(app);
+
+// CDN helper
+app.locals.CDN = require('./controllers/helpers/cdn');
+
+// Define custom routes
+require('./routes')(app);
+
+// Xatch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
-app.get('*', function(req, res) {
-  res.status(404);
+// development 500 error handler
+// will print stacktrace
+if (!isProduction) {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
 
-  if(req.accepts('json')){
-    return res.json({message:'Resource not found'});
-  }
-
-  return res.send('404 Resource not found.');
+// production 500 error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 var port = process.env.PORT || 3000;
@@ -33,5 +63,5 @@ var server = app.listen(port, ip, function (){
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log(pkg.name + ' running at http://%s:%s', host, port);
+  logger.info(pkgjson.name + ' running at http://%s:%s', host, port);
 });
