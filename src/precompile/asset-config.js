@@ -65,7 +65,8 @@ var assets = {
         path.join(bowerDir, 'js-md5/js/js-md5.min.js'),
         path.join(bowerDir, 'underscore.string/dist/underscore.string.min.js'),
         path.join(bowerDir, 'bootstrap/dist/js/bootstrap.min.js'),
-        path.join(bowerDir, 'bootstrap/dist/css/bootstrap.min.css')
+        path.join(bowerDir, 'bootstrap/dist/css/bootstrap.min.css'),
+        path.join(bowerDir, 'malarkey/dist/malarkey.min.js')
       ],
       dest: path.join(outputDir, './statics')
     },

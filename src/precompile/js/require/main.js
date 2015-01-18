@@ -6,6 +6,7 @@ require.config({
       '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min',
       '/statics/bower_components/jquery/dist/jquery.min'
     ],
+    'malarkey': '/statics/bower_components/malarkey/dist/malarkey.min',
     'lodash': '/statics/bower_components/lodash/dist/lodash.min',
     'hammer': '/statics/bower_components/hammerjs/hammer.min',
     'async': '/statics/bower_components/async/lib/async',
@@ -87,10 +88,28 @@ require.config({
 });
 
 (function(){
-  var deps = [ 'app' ];
+  var deps = [ 'app', 'malarkey' ];
   require(deps, onAppInit);
 
-  function onAppInit(app){
+  function onAppInit(app, malarkey){
     $('body').removeAttr('unresolved');
+
+    var elem = document.querySelectorAll('#typist')[0];
+    var opts = {
+      typeSpeed: 50,
+      deleteSpeed: 50,
+      pauseDelay: 2500,
+      loop: true,
+      postfix: ''
+    };
+    malarkey(elem, opts)
+      .type('Bootstrap').pause().delete()
+      .type('Angular').pause().delete()
+      .type('RequireJs').pause().delete()
+      .type('Stylus').pause().delete()
+      .type('Jade').pause().delete()
+      .type('Grunt').pause().delete()
+      .type('Express').pause().delete()
+      .type('NodeJs').pause().delete();
   }
 })();
