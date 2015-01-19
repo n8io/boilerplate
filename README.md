@@ -1,21 +1,15 @@
 # boilerplate
 A project to get you up and running quickly.
 
-## Initialize
+## Get started
 1. `git clone git@github.com:n8io/boilerplate.git && cd boilerplate`
 2. `npm install`
+3. `npm start`
 
-## To build dev assets
-`grunt dev`
-
-## To build prod assets
-`grunt`
-
-## To run node app
-`npm start`
-
-## To watch assets for changes, rebuild, and start the app
-`grunt watcher`
-
-## To view app
-[http://localhost:3000](http://localhost:3000)
+## Do stuff
+* `grunt dev` To build un-min'd, pretty printed assets
+* `grunt` To build min'd and bundled assets
+* `npm start` To start the app
+* `grunt watcher` To watch assets and start the app
+* `grunt watcher | ./node_modules/bunyan/bin/bunyan` To watch assets and start the app with pretty logging
+* [http://localhost:3000](http://localhost:3000) To view app
