@@ -42,7 +42,8 @@ require.config({
       '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min',
       '/statics/bower_components/bootstrap/bootstrap.min'
     ],
-    'app': 'app.min'
+    'app': 'app.min',
+    'templates': 'templates.min'
   },
   shim: {
     'modernizr': {
@@ -80,6 +81,9 @@ require.config({
     },
     'app': {
       'deps': [ 'bootstrap' ]
+    },
+    'templates': {
+      'deps': [ 'app' ]
     }
   },
   priority: [

@@ -4,32 +4,59 @@ append header-title
   | boilerplate
 
 append body-absolutes
-  // Remove this section, only here for as a placeholder
-  .height-15
-  section.center-x-y.position-absolute
-    h1
-      span.pad-right-10 boilerplate
-      small
-        span // TODO:&nbsp;
-        span#typist
-        span &nbsp;code here
-    .height-30
-    .text-center(style='max-width: 1000px;')
-      a(href='http://getbootstrap.com', target='_blank')
-        img(src='#{CDN("/statics/img/logos/bootstrap.jpg")}').img-circle.img-thumbnail.logo.highlighted
-      a(href='http://bower.io', target='_blank')
-        img(src='#{CDN("/statics/img/logos/bower.png")}').img-circle.img-thumbnail.logo
-      a(href='http://angularjs.org', target='_blank')
-        img(src='#{CDN("/statics/img/logos/angular.png")}').img-circle.img-thumbnail.logo
-      a(href='http://requirejs.org', target='_blank')
-        img(src='#{CDN("/statics/img/logos/requirejs.jpg")}').img-circle.img-thumbnail.logo
-      a(href='http://learnboost.github.io/stylus/', target='_blank')
-        img(src='#{CDN("/statics/img/logos/stylus.png")}').img-circle.img-thumbnail.logo
-      a(href='http://jade-lang.com', target='_blank')
-        img(src='#{CDN("/statics/img/logos/jade.png")}').img-circle.img-thumbnail.logo
-      a(href='http://gruntjs.com', target='_blank')
-        img(src='#{CDN("/statics/img/logos/grunt.png")}').img-circle.img-thumbnail.logo
-      a(href='http://expressjs.com', target='_blank')
-        img(src='#{CDN("/statics/img/logos/express.png")}').img-circle.img-thumbnail.logo
-      a(href='http://nodejs.org', target='_blank')
-        img(src='#{CDN("/statics/img/logos/nodejs.png")}').img-circle.img-thumbnail.logo
+  // Remove this demo section, only here as a placeholder for the bolierplate information
+  .demo
+    .center-x-y.position-absolute
+      h1
+        span.pad-right-5 boilerplate
+        span.font-size-tiny.text-muted
+          span v#{pkgjson.version}
+      h4
+        small
+          span // TODO:&nbsp;
+          span#typist
+          span.blinking-cursor
+          span.pad-left-3 code here
+        .clearfix
+      .height-30
+      .text-center(style='max-width: 1000px;')
+        a(href='http://getbootstrap.com', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{bwrjson.dependencies.bootstrap}
+          img(src='#{CDN("/statics/img/logos/bootstrap.jpg")}',version='#{bwrjson.dependencies.bootstrap}').img-circle.img-thumbnail.logo.highlighted.bootstrap
+        a(href='http://angularjs.org', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{bwrjson.dependencies.angular}
+          img(src='#{CDN("/statics/img/logos/angular.png")}',version='#{bwrjson.dependencies.angular}').img-circle.img-thumbnail.logo.angular
+        a(href='http://requirejs.org', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{bwrjson.dependencies.requirejs}
+          img(src='#{CDN("/statics/img/logos/requirejs.jpg")}',version='#{bwrjson.dependencies.requirejs}').img-circle.img-thumbnail.logo.require
+        a(href='http://learnboost.github.io/stylus/', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{pkgjson.dependencies.stylus}
+          img(src='#{CDN("/statics/img/logos/stylus.png")}',version='#{pkgjson.dependencies.stylus}').img-circle.img-thumbnail.logo.stylus
+        a(href='http://jade-lang.com', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{pkgjson.dependencies.jade}
+          img(src='#{CDN("/statics/img/logos/jade.png")}',version='#{pkgjson.dependencies.jade}').img-circle.img-thumbnail.logo.jade
+        a(href='http://gruntjs.com', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{pkgjson.devDependencies.grunt}
+          img(src='#{CDN("/statics/img/logos/grunt.png")}',version='#{pkgjson.devDependencies.grunt}').img-circle.img-thumbnail.logo.grunt
+        a(href='http://expressjs.com', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span #{pkgjson.dependencies.express}
+          img(src='#{CDN("/statics/img/logos/express.png")}',version='#{pkgjson.dependencies.express}').img-circle.img-thumbnail.logo.express
+        a(href='http://nodejs.org', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span 0.10.35
+          img(src='#{CDN("/statics/img/logos/nodejs.png")}',version='0.10.35').img-circle.img-thumbnail.logo.node
+        a(href='http://npmjs.org', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span 1.4.28
+          img(src='#{CDN("/statics/img/logos/npm.png")}',version='1.4.28').img-circle.img-thumbnail.logo.npm
+        a(href='http://bower.io', target='_blank').logo-link
+          .version-tooltip-wrapper.hide
+            span 1.3.8
+          img(src='#{CDN("/statics/img/logos/bower.png")}',version='1.3.8').img-circle.img-thumbnail.logo.bower

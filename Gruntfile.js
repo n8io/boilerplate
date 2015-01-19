@@ -13,12 +13,13 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      all: {
-        src: cfg.jshint.src,
-        options: {
-          // node: true,
-          jshintrc: true
-        }
+      client: {
+        options: cfg.jshint.client.options,
+        src: cfg.jshint.client.src
+      },
+      server: {
+        options: cfg.jshint.server.options,
+        src: cfg.jshint.server.src
       }
     },
     clean: {
@@ -307,7 +308,6 @@ module.exports = function(grunt) {
     'copy',
     'ngAnnotate',
     'uglify:dev',
-    // 'prettify',
     'postprocess'
   ]);
 
@@ -333,7 +333,6 @@ module.exports = function(grunt) {
     'copy',
     'ngAnnotate',
     'uglify:prod',
-    // 'uglify:prodNgCommon',
     'postprocess'
   ]);
 };

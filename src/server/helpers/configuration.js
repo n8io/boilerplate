@@ -2,23 +2,22 @@ module.exports = function(){
   var configFileBaseName = 'config';
   var configDir = path.join(__dirname, '..', 'config');
 
-  cfg = global.config;
-  if(!cfg){
+  if(!global.config){
     throw Error('No global configuration variable is set. config is undefined.');
   }
 
   // Pull in NODE_ENV from environment if set
-  cfg.env(['NODE_ENV']);
+  global.config.env(['NODE_ENV']);
 
   // Default to 'development' in case it is not provided
-  cfg.defaults({ 'NODE_ENV': 'development' });
+  global.config.defaults({ 'NODE_ENV': 'development' });
 
   // Read in any command line args for overrides
-  cfg.argv();
+  global.config.argv();
 
   // Load environment config from file system
-  var envConfig = configFileBaseName + '.' + cfg.get('NODE_ENV') + '.json';
-  cfg.file({
+  var envConfig = configFileBaseName + '.' + global.config.get('NODE_ENV') + '.json';
+  global.config.file({
     file: envConfig,
     dir: configDir,
     search: true
@@ -26,31 +25,31 @@ module.exports = function(){
 
   // Load default configuration from file system
   var defaultConfigPath = path.join(configDir, configFileBaseName + '.json');
-  cfg.file('default', defaultConfigPath);
+  global.config.file('default', defaultConfigPath);
 
   // Push evaluated configs values back for logging later on
-  cfg.set('envConfig', envConfig);
-  cfg.set('defaultConfig', configFileBaseName +  '.json');
-  cfg.set('cdn:qs', getCdnQueryString());
+  global.config.set('envConfig', envConfig);
+  global.config.set('defaultConfig', configFileBaseName +  '.json');
+  global.config.set('cdn:qs', getCdnQueryString());
 
   // Check for any config validation errors
   var configValidationErrors = [];
-  var configRequiredValues = cfg.get('__required') || [];
+  var configRequiredValues = global.config.get('__required') || [];
 
   for (var i = configRequiredValues.length - 1; i >= 0; i--) {
-    if(typeof cfg.get(configRequiredValues[i]) === 'undefined'){
+    if(typeof global.config.get(configRequiredValues[i]) === 'undefined'){
       configValidationErrors.push({
-        reason: configRequiredValues[i] + ' is a required configuration value. Please add a valid value to your environment config: ' + cfg.get('envConfig')
+        reason: configRequiredValues[i] + ' is a required configuration value. Please add a valid value to your environment config: ' + global.config.get('envConfig')
       });
     }
   }
 
   // Set so these can be evaluated later, but before app startup
-  cfg.set('configValidationErrors', configValidationErrors);
+  global.config.set('configValidationErrors', configValidationErrors);
 
   function getCdnQueryString(){
-    var cbk = cfg.get('cdn:cacheKey') || (cfg.get('NODE_ENV').indexOf('dev') === 0 ? (new Date()).getTime() : '');
-    if(!cbk) return '';
+    var cbk = global.config.get('cdn:cacheKey') || (global.config.get('NODE_ENV').indexOf('dev') === 0 ? (new Date()).getTime() : '');
+    if(!cbk) { return ''; }
 
     return '?noc=' + cbk.toString();
   }

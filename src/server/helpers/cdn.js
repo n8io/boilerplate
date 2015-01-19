@@ -3,7 +3,7 @@ var url = require('url');
 var cdn = function(){};
 
 module.exports = function(uri, options){
-  if(!uri) return uri;
+  if(!uri) { return uri; }
 
   var defaults = {
     cdn: { // Set 'cdn' value to a falsy value to disable cdn

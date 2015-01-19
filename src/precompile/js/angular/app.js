@@ -1,4 +1,5 @@
 (function(){
+  'use strict';
   var deps = [ 'app', 'malarkey' ];
   require(deps, onAppInit);
 
@@ -9,7 +10,7 @@
     var opts = {
       typeSpeed: 50,
       deleteSpeed: 50,
-      pauseDelay: 2000,
+      pauseDelay: 2150,
       loop: true,
       postfix: ''
     };
@@ -21,15 +22,21 @@
       .type('Jade').pause().delete().call(moveOn)
       .type('Grunt').pause().delete().call(moveOn)
       .type('Express').pause().delete().call(moveOn)
-      .type('NodeJs').pause().delete().call(moveOn);
+      .type('NodeJs').pause().delete().call(moveOn)
+      .type('NPM').pause().delete().call(moveOn)
+      .type('Bower').pause().delete().call(moveOn);
 
-    var imgs = $('img:not(:nth-child(2))');
+    var imgs = $('img.logo');
+    // imgs = $(imgs).not($('img.logo[bower]')); // Remove bower
+    // imgs = $(imgs).not($('img.logo[npm]')); // Remove npm
     var highlightedIndex = 0;
 
     function moveOn(){
+      /*jshint validthis: true */
       $(imgs).removeClass('highlighted');
       highlightedIndex = (highlightedIndex + 1) % imgs.length;
-      $(imgs).eq(highlightedIndex).addClass('highlighted');
+      var $module = $(imgs).eq(highlightedIndex);
+      $module.addClass('highlighted');
       this();
     }
   }

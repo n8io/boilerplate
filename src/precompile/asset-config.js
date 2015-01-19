@@ -1,19 +1,70 @@
 /*
-  This file defines (for Grunt) where assets that need
-  manipulated are located in relation to the Gruntfile.js in the project root
+  This file defines (for Grunt) where asset sources and destinations relative to  the project root
 */
 
 var path = require('path');
 var outputDir = 'dist';
+var prebuildDir = './src/precompile';
 var bowerDir = 'bower_components';
 
 var assets = {
   outputDir: outputDir,
   jshint: {
-    src: [
-      './src/precompile/js/**/*.js',
-      './src/server/**/*.js'
-    ]
+    client: {
+      options: {
+        browser: true,  // true: Act as if running in browser (window, self, etc are valid)
+        curly: true,    // true: Require {} for every new block or scope
+        eqeqeq: true,   // true: Require triple equals (===) for comparison
+        immed: true,    // true: Require immediate invocations to be wrapped in parens e.g. `(function () { } ());`
+        latedef: false,  // true: Require variables/functions to be defined before being used
+        newcap: true,   // true: Require capitalization of all constructor functions e.g. `new F()`
+        noarg: true,    // true: Prohibit use of `arguments.caller` and `arguments.callee`
+        sub: true,      // true: Tolerate using `[]` notation when it can still be expressed in dot notation
+        undef: true,    // true: Require all non-global variables to be declared (prevents global leaks)
+        boss: false,     // true: Tolerate assignments where comparisons would be expected
+        eqnull: false,   // true: Tolerate use of `== null`
+        node: false,     // Node.js
+        globals: {
+          require: true,
+          define: true,
+          $: true
+        }
+      },
+      src: [ path.join(prebuildDir, './js/**/*.js') ]
+    },
+    server: {
+      options: {
+        browser: false,
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: false,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: true,
+        boss: false,
+        eqnull: false,
+        node: true,
+        globals: {
+          config: true,
+          logger: true,
+          fs: true,
+          path: true,
+          express: true,
+          _: true,
+          moment: true,
+          async: true,
+          request: true,
+          ms: true,
+          pkgjson: true,
+          bwrjson: true,
+          isProduction: true,
+          isDevelopment: true
+        }
+      },
+      src: [ './src/server/**/*.js' ]
+    }
   },
   angular: {
     cleanup: [
@@ -21,16 +72,16 @@ var assets = {
     ]
   },
   stylus: {
-    src: [ './src/precompile/css/style.styl' ],
+    src: [ path.join(prebuildDir, './css/style.styl') ],
     dest: path.join(outputDir, './css/style.min.css')
   },
   jade: {
-    cwd: './src/precompile/html' ,
+    cwd: path.join(prebuildDir, './html') ,
     src: [
       '**/*.jade',
       '!_layouts/**'
     ],
-    dest: path.join(outputDir, './html/')
+    dest: path.join(outputDir, './html')
   },
   htmlmin: {
     cwd: path.join(outputDir, './html'),
@@ -49,7 +100,7 @@ var assets = {
       dest: path.join(outputDir, './statics')
     },
     bower: {
-      cwd: 'src/precompile/statics',
+      cwd: path.join(prebuildDir, './statics'),
       src: [
         path.join(bowerDir, 'requirejs/require.js'),
         path.join(bowerDir, 'angular/angular.min.js'),
@@ -99,15 +150,15 @@ var assets = {
   },
   watch: {
     css: {
-      files: './src/precompile/css/**/*.styl'
+      files: path.join(prebuildDir, './css/**/*.styl')
     },
     statics: {
-      files: './src/precompile/statics/**/*'
+      files: path.join(prebuildDir, './statics/**/*')
     },
     js: {
       files: [
-        './src/precompile/js/**/*.js',
-        './src/precompile/html/**/*.jade'
+        path.join(prebuildDir, './js/**/*.js'),
+        path.join(prebuildDir, './html/**/*.jade')
       ]
     }
   },

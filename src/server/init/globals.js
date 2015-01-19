@@ -21,3 +21,4 @@ global.appStartTime = (new Date()).getTime();
 global.isProduction = !((process.env.NODE_ENV||'dev').toLowerCase().indexOf('prod'));
 global.isDevelopment = !((process.env.NODE_ENV||'dev').toLowerCase().indexOf('dev'));
 global.pkgjson = require('../../../package.json');
+global.bwrjson = require('../../../bower.json');

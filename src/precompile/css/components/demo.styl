@@ -1,0 +1,46 @@
+.demo *
+  .logo
+    width 100px
+    height 100px
+    transition all 500ms ease
+    border 2px solid #555
+    margin 0 10px 10px 0
+    &:hover
+      box-shadow 0 0 15px #fff
+  .logo-link
+    position relative
+  .highlighted
+    box-shadow 0 0 15px transparent
+    &.bootstrap
+      box-shadow 0 0 15px lighten(#593C7F, 20%)
+    &.angular
+      box-shadow 0 0 15px #C4473A
+    &.require
+      box-shadow 0 0 15px #41A4EC
+    &.stylus
+      box-shadow 0 0 15px #B8D416
+    &.jade
+      box-shadow 0 0 15px #50A169
+    &.grunt
+      box-shadow 0 0 15px #FBA919
+    &.express
+      box-shadow 0 0 15px #EEEEEE
+    &.node
+      box-shadow 0 0 15px #7AC91A
+    &.npm
+      box-shadow 0 0 15px #D23130
+    &.bower
+      box-shadow 0 0 15px #FFCC2F
+  #typist
+    color darken(#fff,25%)
+
+  .blinking-cursor
+    animation 1.5s blink step-end infinite
+    padding-left 2px
+    margin-left 2px
+
+  @keyframes {"blink"}
+    from,to
+      background-color transparent
+    50%
+      background-color #777
