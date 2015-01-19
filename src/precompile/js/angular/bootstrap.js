@@ -1,8 +1,14 @@
 (function(){
-  var deps = [ 'app.min' ];
-  require(deps, initializeApp);
+  var deps = [
+      'angular',
+      'angular-resource',
+      'angular-route'
+    ];
 
-  function initializeApp(app){
-    app.initialize();
+  define('app', deps, defineAppModule);
+
+  function defineAppModule(angular){
+    var app = angular .module('app', [ 'ngResource', 'ngRoute' ]);
+    return angular.bootstrap(app);
   }
 })();

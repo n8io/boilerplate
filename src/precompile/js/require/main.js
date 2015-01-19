@@ -84,32 +84,8 @@ require.config({
   },
   priority: [
     'angular'
-  ]
+  ],
+  deps: ['bootstrap.min']
 });
 
-(function(){
-  var deps = [ 'app', 'malarkey' ];
-  require(deps, onAppInit);
-
-  function onAppInit(app, malarkey){
-    $('body').removeAttr('unresolved');
-
-    var elem = document.querySelectorAll('#typist')[0];
-    var opts = {
-      typeSpeed: 50,
-      deleteSpeed: 50,
-      pauseDelay: 2500,
-      loop: true,
-      postfix: ''
-    };
-    malarkey(elem, opts)
-      .type('Bootstrap').pause().delete()
-      .type('Angular').pause().delete()
-      .type('RequireJs').pause().delete()
-      .type('Stylus').pause().delete()
-      .type('Jade').pause().delete()
-      .type('Grunt').pause().delete()
-      .type('Express').pause().delete()
-      .type('NodeJs').pause().delete();
-  }
-})();
+require(['app'], function(app){});
