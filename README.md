@@ -1,3 +1,5 @@
+![boilerplate](/boilerplate.png?raw=true "boilerplate")
+
 # boilerplate
 A project to get you up and running quickly.
 
