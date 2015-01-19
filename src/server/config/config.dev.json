@@ -1,0 +1,5 @@
+{
+  "session": {
+    "secret": "< set this value per environment >"
+  }
+}
