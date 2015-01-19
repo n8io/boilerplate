@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       dist: {
         options:{
           keepSpecialComments: 0,
-          banner : '/* Minified via CssMin ' + timestamp + ' */'
+          banner : '/* Min\'d via CssMin ' + timestamp + ' */'
         },
         files: [
           {
@@ -218,7 +218,8 @@ module.exports = function(grunt) {
       prod: {
         options: {
           mangle: true,
-          compress: true
+          compress: true,
+          banner : '/* Min\'d via UglifyJs ' + timestamp + ' */\n'
         },
         files: [
           {
@@ -256,6 +257,34 @@ module.exports = function(grunt) {
           interrupt: false
         }
       }
+    },
+    concurrent: {
+      tasks: ['nodemon', 'watch', 'node-inspector'],
+      options: {
+        logConcurrentOutput: true
+      }
+    },
+    nodemon: {
+      dev: {
+        script: 'app.js',
+        options : {
+          cwd: cfg.nodemon.cwd,
+          nodeArgs: ['--debug=' + cfg.nodemon.debugPort],
+          watch: cfg.nodemon.watch,
+          ext: 'js,json'
+        }
+      },
+    },
+    'node-inspector': {
+      dev: {
+        options: {
+          'web-port': 8080,
+          'web-host': 'localhost',
+          'debug-port': cfg.nodemon.debugPort,
+          'save-live-edit': true,
+          hidden: ['node_modules']
+        }
+      }
     }
   });
 
@@ -290,7 +319,7 @@ module.exports = function(grunt) {
   // Dev watcher
   grunt.registerTask('watcher', 'Fires minify css and js, then watches for changes', [
     'dev',
-    'watch'
+    'concurrent'
   ]);
 
   // Prod build (default task)
