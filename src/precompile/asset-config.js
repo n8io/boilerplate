@@ -1,7 +1,12 @@
-var path = require('path');
+/*
+  This file defines (for Grunt) where assets that need
+  manipulated are located in relation to the Gruntfile.js in the project root
+*/
 
+var path = require('path');
 var outputDir = 'dist';
 var bowerDir = 'bower_components';
+
 var assets = {
   outputDir: outputDir,
   jshint: {
@@ -105,6 +110,11 @@ var assets = {
         './src/precompile/html/**/*.jade'
       ]
     }
+  },
+  nodemon: {
+    cwd: './src/server',
+    debugPort: 5860,
+    watch: ['**/*.js', '**/*.json']
   }
 };
 
