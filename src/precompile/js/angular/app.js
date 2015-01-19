@@ -27,8 +27,6 @@
       .type('Bower').pause().delete().call(moveOn);
 
     var imgs = $('img.logo');
-    // imgs = $(imgs).not($('img.logo[bower]')); // Remove bower
-    // imgs = $(imgs).not($('img.logo[npm]')); // Remove npm
     var highlightedIndex = 0;
 
     function moveOn(){
