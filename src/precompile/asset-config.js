@@ -90,7 +90,7 @@ var assets = {
   },
   copy: {
     statics: {
-      cwd: 'src/precompile/statics',
+      cwd: path.join(prebuildDir, './statics'),
       src: [
         './img/**/*',
         './fonts/**/*',
@@ -127,7 +127,7 @@ var assets = {
       dest: path.join(outputDir, './statics')
     },
     js: {
-      cwd: 'src/precompile/js',
+      cwd: path.join(prebuildDir, './js'),
       src: [ '**/*.js' ],
       dest: path.join(outputDir, './js')
     }
