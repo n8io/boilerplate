@@ -6,8 +6,7 @@ A project to get you up and running quickly.
 ## Get started
 1. `git clone git@github.com:n8io/boilerplate.git && cd boilerplate`
 2. `npm install`
-3. `export NODE_ENV=dev`
-3. `npm start`
+3. `NODE_ENV=dev npm start`
 
 ## Do stuff
 * `grunt dev` To build un-min'd, pretty printed assets
